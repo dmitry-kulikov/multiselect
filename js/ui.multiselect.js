@@ -118,27 +118,24 @@ $.widget("ui.multiselect", {
 							$(this).data('optionLink').remove().appendTo(that.element);
 					});
 				},
-				beforeStop: function (event, ui) {
-					// This lets us recognize which item was just added to
-					// the list in receive, per the workaround for not being
-					// able to reference the new element.
-					ui.item.addClass('dropped');
-				},
 				receive: function(event, ui) {
+					var draggedItem = that.selectedList.children('.ui-draggable');
+
+					// set selected attribute on linked option element
 					ui.item.data('optionLink').attr('selected', true);
-					// increment count
+
+					// set item data, classes, and events
+					draggedItem.data({
+						'optionLink': ui.item.data('optionLink'),
+						'idx': ui.item.data('idx')
+					}).removeClass('ui-draggable');
+					that._applyItemState(draggedItem, true);
+
+					// update count
 					that.count += 1;
 					that._updateCount();
-					// workaround, because there's no way to reference
-					// the new element, see http://dev.jqueryui.com/ticket/4303
-					that.selectedList.children('.dropped').each(function() {
-						$(this).removeClass('dropped');
-						$(this).data('optionLink', ui.item.data('optionLink'));
-						$(this).data('idx', ui.item.data('idx'));
-						that._applyItemState($(this), true);
-					});
 
-					// workaround according to http://dev.jqueryui.com/ticket/4088
+					// 1 ms workaround according to http://dev.jqueryui.com/ticket/4088
 					setTimeout(function() { ui.item.remove(); }, 1);
 				},
 				stop: function (event, ui) { that.element.change(); }
