@@ -395,8 +395,8 @@ $.widget("ui.multiselect", {
 	_registerAddEvents: function(elements) {
 		var that = this;
 		elements.click(function() {
-			var item = that._setSelected($(this).parent(), true);
-			that.count += 1;
+			var item = that._setSelected($(this).parent().removeClass('ui-draggable'), true);
+ 			that.count += 1;
 			that._updateCount();
 
 			// Prevent extra clicks from triggering bogus add events, if a user
