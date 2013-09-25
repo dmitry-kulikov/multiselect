@@ -71,15 +71,6 @@ $.widget("ui.multiselect", {
 
 		var that = this;
 
-		var width = this.options.width;
-		if (!width) {
-			width = this.element.width();
-		}
-		var height = this.options.height;
-		if (!height) {
-			height = this.element.height();
-		}
-
 		this.resize();
 
 		if ( !this.options.animated ) {
@@ -160,8 +151,14 @@ $.widget("ui.multiselect", {
 		});
 	},
 	resize:function(){
-		var width = this.element.width();
-		var height = this.element.height();
+		var width = this.options.width;
+		if (!width) {
+			width = this.element.width();
+		}
+		var height = this.options.height;
+		if (!height) {
+			height = this.element.height();
+		}
 
 		this.container.width(width-2);
 		if (this.options.selectedContainerOnLeft) {
