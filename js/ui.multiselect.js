@@ -80,19 +80,7 @@ $.widget("ui.multiselect", {
 			height = this.element.height();
 		}
 
-		// set dimensions
-		this.container.width(width-2);
-		if (this.options.selectedContainerOnLeft) {
-			this.selectedContainer.width(Math.floor(width*this.options.dividerLocation)-1);
-			this.availableContainer.width(Math.floor(width*(1-this.options.dividerLocation))-2);
-		} else {
-			this.selectedContainer.width(Math.floor(width*this.options.dividerLocation)-2);
-			this.availableContainer.width(Math.floor(width*(1-this.options.dividerLocation))-1);
-		}
-
-		// fix list height to match <option> depending on their individual header's heights
-		this.selectedList.height(Math.max(height-this.selectedActions.height(),1));
-		this.availableList.height(Math.max(height-this.availableActions.height(),1));
+		this.resize();
 
 		if ( !this.options.animated ) {
 			this.options.show = 'show';
@@ -170,6 +158,23 @@ $.widget("ui.multiselect", {
 
 			return false;
 		});
+	},
+	resize:function(){
+		var width = this.element.width();
+		var height = this.element.height();
+
+		this.container.width(width-2);
+		if (this.options.selectedContainerOnLeft) {
+			this.selectedContainer.width(Math.floor(width*this.options.dividerLocation)-1);
+			this.availableContainer.width(Math.floor(width*(1-this.options.dividerLocation))-2);
+		} else {
+			this.selectedContainer.width(Math.floor(width*this.options.dividerLocation)-2);
+			this.availableContainer.width(Math.floor(width*(1-this.options.dividerLocation))-1);
+		}
+
+		// fix list height to match <option> depending on their individual header's heights
+		this.selectedList.height(Math.max(height-this.selectedActions.height(),1));
+		this.availableList.height(Math.max(height-this.availableActions.height(),1));
 	},
 	destroy: function() {
 		this.element.show();
