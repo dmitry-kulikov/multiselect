@@ -10,6 +10,7 @@ If you submit patches I'll try be a little more on top of maintaining them.
 * dragToAdd (true) : enable adding selected items by dragging.
 * searchable (true) : enable searching for available items.
 * doubleClickable (true) : enable adding selected item by double clicking.
+* singleClickable (false) : enable adding selected item by single clicking (when true, forces `doubleClickable` to be false).
 * animated (fast) : animation option.
 * show (slideDown) : show effect.
 * hide (slideUp) : hide effect.
