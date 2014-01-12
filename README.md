@@ -45,6 +45,11 @@ $(&quot;#colors&quot;).multiselect({
 </pre></code>
 
 ## History ##
+### 1/11/2014 ###
+Merged contribution from mgalgs:
+
+*Added singleClickable option
+
 ### 4/4/2012 ###
 Merged the following contributions from NateEag:
 
