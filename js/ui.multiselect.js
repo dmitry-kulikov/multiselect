@@ -98,7 +98,7 @@ $.widget("ui.multiselect", {
 					var draggedItem = that.selectedList.children('.ui-draggable');
 
 					// set selected attribute on linked option element
-					ui.item.data('optionLink').attr('selected', true);
+					ui.item.data('optionLink').prop('selected', true);
 
 					// set item data, classes, and events
 					draggedItem.data({
@@ -127,7 +127,7 @@ $.widget("ui.multiselect", {
 
 		// batch actions
 		this.container.find(".remove-all").click(function() {
-			that._populateLists(that.element.find('option').removeAttr('selected'));
+			that._populateLists(that.element.find('option').prop('selected', false));
 			that.element.trigger('change');
 			return false;
 		});
@@ -136,10 +136,10 @@ $.widget("ui.multiselect", {
 			var options = that.element.find('option').not(":selected");
 			if (that.availableList.children('li:hidden').length > 1) {
 				that.availableList.children('li').each(function(i) {
-					if ($(this).is(":visible")) $(options[i-1]).attr('selected', 'selected');
+					if ($(this).is(":visible")) $(options[i-1]).prop('selected', true);
 				});
 			} else {
-				options.attr('selected', 'selected');
+				options.prop('selected', true);
 			}
 			that._populateLists(that.element.find('option'));
 			that.element.trigger('change');
@@ -186,12 +186,12 @@ $.widget("ui.multiselect", {
 		var select = this.element;
 		select.append(option);
 
-		var item = this._getOptionNode(option).appendTo(option.attr('selected') ? this.selectedList : this.availableList).show();
+		var item = this._getOptionNode(option).appendTo(option.prop('selected') ? this.selectedList : this.availableList).show();
 
-		if (option.attr('selected')) {
+		if (option.prop('selected')) {
 			this.count += 1;
 		}
-		this._applyItemState(item, option.attr('selected'));
+		this._applyItemState(item, option.prop('selected'));
 		item.data('idx', this.count);
 
 		// update count
@@ -272,7 +272,7 @@ $.widget("ui.multiselect", {
 		return clone;
 	},
 	_setSelected: function(item, selected) {
-		var temp = item.data('optionLink').attr('selected', selected);
+		var temp = item.data('optionLink').prop('selected', selected);
 		var parent = temp.parent();
 		temp.detach().appendTo(parent);
 		this.element.trigger('change');
